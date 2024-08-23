@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios";
 import toast from 'react-hot-toast';
 
@@ -12,6 +12,8 @@ const Signup = () => {
     confirmPassword: '',
     gender:"",
   })
+
+  const navigate = useNavigate();
 
   const handleCheckbox = (gender) => {
     setUser({...user, gender });
@@ -27,9 +29,11 @@ const Signup = () => {
         withCredentials: true
       });
      if(res.data.success){
+       navigate("/login");
        toast.success(res.data.message);
      }
     } catch (error) {
+      toast.error(error.response.data.message);
       console.log(error)
     }
     console.log(user);
