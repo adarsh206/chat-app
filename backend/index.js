@@ -5,10 +5,10 @@ import userRoute from "./routes/userRoute.js";
 import cookieParser from 'cookie-parser';
 import messageRoute from "./routes/messageRoute.js";
 import cors from "cors";
+import { app, server } from './socket/socket.js';
 
 dotenv.config({});
 
-const app = express();
 const PORT = process.env.PORT || 8080;
 
 //middleware
@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
   res.status(200).json({ message: 'Hello, World!' });
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     connectDB();
     console.log(`Server is running on port ${PORT}`);
   });
